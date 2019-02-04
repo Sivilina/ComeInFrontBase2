@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_item_groups"
+        android:icon="@mipmap/ic_launcher_foreground"
+        android:title="@string/groups" />
+    <item
+        android:id="@+id/nav_item_chats"
+        android:icon="@mipmap/ic_launcher_talkative"
+        android:title="@string/chat" />
+    <item
+            android:id="@+id/nav_item_settings"
+            android:title="@string/settings" android:icon="@mipmap/ic_launcher_setup"/>
+
+
+</menu>
