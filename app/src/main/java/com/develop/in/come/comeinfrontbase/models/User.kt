@@ -2,18 +2,21 @@ package com.develop.`in`.come.comeinfrontbase.models
 
 class User {
 
-    var name: String? = null
+    var firstname: String? = null
+    var lastname: String? = null
+    var username: String? = null
     var email: String? = null
+    var phone: String? = null
     var password: String? = null
     var created_at: String? = null
     var newPassword: String? = null
     var token: String? = null
+    var aboutMe: String? = null
 
     constructor()
 
     constructor(u: User) {
-        this.name = u.name
-        this.email = u.email
+        this.phone = u.phone
         this.password = u.password
         this.created_at = u.created_at
         this.token = u.token
@@ -24,12 +27,5 @@ class User {
         this.password = password
     }
 
-
-    override fun toString(): String {
-        return "{" +
-                "email:'" + email + '\''.toString() +
-                ", name:'" + name + '\''.toString() +
-                '}'.toString()
-    }
 
 }

@@ -14,8 +14,6 @@ import rx.schedulers.Schedulers;
 import java.io.IOException;
 
 public class NetworkUtil {
-    public static final MediaType MEDIA_TYPE =
-            MediaType.parse("application/json");
 
     public static RetrofitInterface getRetrofit(){
 

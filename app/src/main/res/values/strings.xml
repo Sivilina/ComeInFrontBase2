@@ -69,4 +69,9 @@
     <string name="token">Token</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log out</string>
+    <string name="first_name_optional">First Name (optional)</string>
+    <string name="last_name_optional">Last Name (optional)</string>
+    <string name="username_required">Username (required)</string>
+    <string name="continue_next"><![CDATA[Continue ->]]></string>
+    <string name="iconforemail">Icon for email</string>
 </resources>

@@ -21,13 +21,15 @@ import com.develop.`in`.come.comeinfrontbase.fragments.ProfileFragment
 import com.develop.`in`.come.comeinfrontbase.fragments.SentFragment
 import com.develop.`in`.come.comeinfrontbase.fragments.SettingsFragment
 import com.develop.`in`.come.comeinfrontbase.fragments.TabFragment
-import com.develop.`in`.come.comeinfrontbase.fragments.auth.ChangePasswordDialog
+import com.develop.`in`.come.comeinfrontbase.fragments.auth.LoginFragment
 import com.develop.`in`.come.comeinfrontbase.models.User
 import com.develop.`in`.come.comeinfrontbase.network.ChatApplication
 import com.develop.`in`.come.comeinfrontbase.util.Constants
+import com.google.gson.Gson
 
 import rx.subscriptions.CompositeSubscription
 import io.socket.client.Socket
+import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -35,15 +37,14 @@ import java.util.ArrayList
 
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class MainActivity : AppCompatActivity(), ChangePasswordDialog.Listener {
-    override fun onPasswordChanged() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class MainActivity : AppCompatActivity() {
+
 
     lateinit var mUserList: ArrayList<User>
     lateinit var mDrawerLayout: DrawerLayout
     lateinit var mNavigationView: NavigationView
     lateinit var mFragmentManager: FragmentManager
+    lateinit var mFM: android.app.FragmentManager
     lateinit var mFragmentTransaction: FragmentTransaction
     lateinit var mTvName: TextView
     lateinit var mIvAvatar: ImageView
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity(), ChangePasswordDialog.Listener {
         initViews()
         initSharedPreferences()
         initSocket()
-        loadUserList()
+        //loadUserList()
         loadNavView()
         //load()
     }
@@ -86,13 +87,14 @@ class MainActivity : AppCompatActivity(), ChangePasswordDialog.Listener {
     }
 
     fun initSharedPreferences(){
-      mSubscriptions = CompositeSubscription()
-      mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-      mToken = mSharedPreferences.getString(Constants.TOKEN, "")
-      mEmail = mSharedPreferences.getString(Constants.EMAIL, "")
-      mName = mSharedPreferences.getString(Constants.NAME,"")
-      mTvName.setText(mName)
-      mTvEmail.setText(mEmail)
+        mSubscriptions = CompositeSubscription()
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val gson = Gson()
+        val json = mSharedPreferences.getString(Constants.CURRENT_USER, "")
+        val currentUser = gson.fromJson<Any>(json, User::class.java) as User
+        mToken = currentUser.token!!
+        mEmail = currentUser.phone!!
+        mTvEmail.setText(mEmail)
     }
 
     fun initSocket(){
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity(), ChangePasswordDialog.Listener {
     fun loadUserList(){
       mUserList = ArrayList<User>()
       val message = JSONObject()
-      message.put("name",mName);
+     // message.put("name",mName);
       message.put("email",mEmail)
       mSocket.emit("username",message);
       mSocket.on("userList") { args ->
@@ -118,10 +120,10 @@ class MainActivity : AppCompatActivity(), ChangePasswordDialog.Listener {
               for (i in 0..(values.length() - 1)) {
                   var item = values.getJSONObject(i) as JSONObject
                   var u = User()
-                  u.name = item.getString("userName")
+                  u.username = item.getString("userName")
                   u.email = item.getString("email")
                   u.token = item.getString("id")
-                  if(u.name != mName)
+                  if(u.username != mName)
                       mUserList.add(u)
                           //Debug: //println(u)
               }
@@ -165,6 +167,7 @@ class MainActivity : AppCompatActivity(), ChangePasswordDialog.Listener {
     }
 
     fun loadProfileLayout(){
+
         val ft = mFragmentManager.beginTransaction()
         mDrawerLayout.closeDrawers()
         ft.replace(R.id.containerView, ProfileFragment()).commit()
@@ -252,9 +255,9 @@ private fun handleError(error: Throwable) {
     }
 
 
-        public fun getUserList() : ArrayList<User>{
+       /* public fun getUserList() : ArrayList<User>{
           return mUserList;
-        }
+        }*/
 
         public fun getGroupList() :ArrayList<String>{
           var res = ArrayList<String>()

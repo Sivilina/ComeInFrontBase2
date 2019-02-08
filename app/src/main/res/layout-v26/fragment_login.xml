@@ -17,17 +17,17 @@
             android:layout_margin="@dimen/activity_vertical_margin">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/ti_email"
+                android:id="@+id/ti_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/child_margin_top">
 
                 <EditText
-                        android:id="@+id/et_email"
+                        android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/email"
-                        android:inputType="textEmailAddress" android:autofillHints=""/>
+                        android:hint="@string/phone_number"
+                        android:inputType="phone" android:autofillHints=""/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -35,7 +35,7 @@
                 android:id="@+id/ti_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ti_email"
+                android:layout_below="@+id/ti_phone"
                 android:layout_marginTop="@dimen/child_margin_top"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@android:color/white">
@@ -48,7 +48,14 @@
                         android:inputType="textPassword" android:autofillHints=""/>
 
             </android.support.design.widget.TextInputLayout>
-
+            <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ti_password"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/child_margin_top"
+                    android:visibility="gone"/>
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
@@ -59,33 +66,8 @@
                 android:paddingEnd="48dp"
                 android:text="@string/login" />
 
-            <TextView
-                android:id="@+id/tv_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btn_login"
-                android:layout_marginTop="@dimen/child_margin_top"
-                android:text="@string/not_registered_register_now"
-                android:textAlignment="center" />
 
-            <TextView
-                android:id="@+id/tv_forgot_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_register"
-                android:layout_marginTop="@dimen/child_margin_top"
-                android:text="@string/forgot_password"
-                android:textAlignment="center" />
 
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_forgot_password"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/child_margin_top"
-                android:layout_marginBottom="@dimen/child_margin_top"
-                android:visibility="gone"/>
 
         </RelativeLayout>
     </LinearLayout>

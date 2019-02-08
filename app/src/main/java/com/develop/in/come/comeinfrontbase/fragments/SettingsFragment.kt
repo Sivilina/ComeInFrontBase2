@@ -15,6 +15,7 @@ import com.develop.`in`.come.comeinfrontbase.R
 import com.develop.`in`.come.comeinfrontbase.activities.LoginActivity
 import com.develop.`in`.come.comeinfrontbase.activities.MainActivity
 import com.develop.`in`.come.comeinfrontbase.util.Constants
+import java.util.concurrent.CopyOnWriteArrayList
 
 class SettingsFragment : Fragment(){
     lateinit var mBtnLogout: Button
@@ -41,7 +42,8 @@ class SettingsFragment : Fragment(){
         editor.remove(Constants.FIRSTNAME)
         editor.remove(Constants.TOKEN)
         editor.remove(Constants.EMAIL)
-        editor.remove(Constants.SECONDNAME)
+        editor.remove(Constants.LASTNAME)
+        editor.remove(Constants.CURRENT_USER)
         editor.apply()
         val intent = Intent(activity, LoginActivity::class.java)
         startActivity(intent)

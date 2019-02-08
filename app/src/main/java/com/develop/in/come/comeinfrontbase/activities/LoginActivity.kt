@@ -12,17 +12,12 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.develop.`in`.come.comeinfrontbase.R
-import com.develop.`in`.come.comeinfrontbase.fragments.auth.ChangePasswordDialog
 import com.develop.`in`.come.comeinfrontbase.fragments.auth.LoginFragment
-import com.develop.`in`.come.comeinfrontbase.fragments.auth.ResetPasswordDialog
 import com.develop.`in`.come.comeinfrontbase.util.Constants
 import kotlinx.android.synthetic.main.activity_login.*
 
 
-class LoginActivity : AppCompatActivity(), ResetPasswordDialog.Listener, ChangePasswordDialog.Listener {
-    override fun onPasswordChanged() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+class LoginActivity : AppCompatActivity() {
 
     lateinit var mFragmentManager: FragmentManager
     lateinit var mFragmentTransaction: FragmentTransaction
@@ -68,9 +63,6 @@ class LoginActivity : AppCompatActivity(), ResetPasswordDialog.Listener, ChangeP
     }
 
 
-    override fun onPasswordReset(message: String) {
-        showSnackBarMessage(message)
-    }
 
     private fun showSnackBarMessage(message: String) {
         Snackbar.make(findViewById<View>(R.id.activity_login), message, Snackbar.LENGTH_SHORT).show()
