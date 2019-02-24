@@ -44,8 +44,11 @@ class SettingsFragment : Fragment(){
         editor.remove(Constants.EMAIL)
         editor.remove(Constants.LASTNAME)
         editor.remove(Constants.CURRENT_USER)
+        editor.remove(Constants.ABOUT_ME)
         editor.apply()
-        val intent = Intent(activity, LoginActivity::class.java)
-        startActivity(intent)
+        val i = Intent(activity!!.applicationContext, LoginActivity::class.java);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.putExtra("EXIT", true);
+        startActivity(i);
     }
 }

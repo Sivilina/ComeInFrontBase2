@@ -142,10 +142,7 @@ class NewProfileActivity: Activity(){
 
     private fun handleError(error: String) {
         val json = JSONObject(error)
-        val pjson = json.getJSONObject("error")
-        println(error)
-        showSnackBarMessage("Error: " + pjson.getString("message"))
-        mTiUsername.error = pjson.getString("message");
+        showSnackBarMessage("Error: " + json.getString("message"))
     }
 
     private fun showSnackBarMessage(message: String) {

@@ -159,12 +159,21 @@ class LoginFragment: Fragment() {
         user.token = data.getString("token")
         user.phone = data.getJSONObject("user").getString("phone")
         user.created_at = data.getJSONObject("user").getString("createdAt")
-
-
+        println("Token: ${user.token}")
 
 
         if(usernameExist) {
             user.username = data.getJSONObject("user").getString("username")
+            var profile = data.getJSONObject("user").getJSONObject("profile")
+            if(profile.has("firstname"))
+                user.firstname = profile.getString("firstname")
+            if(profile.has("lastname"))
+                user.lastname = profile.getString("lastname")
+            if(profile.has("email"))
+                user.email = profile.getString("email")
+            if(profile.has("about"))
+                user.aboutMe = profile.getString("about")
+
             addUserToSharedPreference(user)
             val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
@@ -180,6 +189,12 @@ class LoginFragment: Fragment() {
         val gson = Gson()
         editor.putString(Constants.CURRENT_USER, gson.toJson(u))
         editor.putString(Constants.TOKEN,u.token)
+        if(!u.firstname.isNullOrEmpty())
+            editor.putString(Constants.FIRSTNAME, u.firstname)
+        if(!u.lastname.isNullOrEmpty())
+            editor.putString(Constants.LASTNAME,u.lastname)
+
+
         editor.apply()
     }
 

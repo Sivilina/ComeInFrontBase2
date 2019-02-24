@@ -19,6 +19,8 @@ class EditAboutMeDialog: DialogFragment(){
         fun sendInputAboutMe(input:String)
     }
 
+    var aboutMeSP:String?=null
+
     lateinit var mOnInputListener: OnInputListener
     lateinit var mEtAboutMe: EditText
     lateinit var mTvActionOk: TextView
@@ -45,6 +47,8 @@ class EditAboutMeDialog: DialogFragment(){
         mTvActionCancel = v.findViewById(R.id.action_cancel)
         mTvActionOk = v.findViewById(R.id.action_ok)
         mEtAboutMe = v.findViewById(R.id.input_about_me)
+        mEtAboutMe.setText(aboutMeSP)
+
         mTvActionCancel.setOnClickListener{
             println("onClick: closing dialog")
             dialog.dismiss()

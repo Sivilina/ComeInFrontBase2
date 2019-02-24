@@ -20,6 +20,7 @@ class EditEmailDialog: DialogFragment(){
         fun sendInputEmail(input:String)
     }
 
+    var emailSP :String?=null
     lateinit var mOnInputListener: OnInputListener
     lateinit var mEtEmail: EditText
     lateinit var mTvActionOk: TextView
@@ -46,6 +47,7 @@ class EditEmailDialog: DialogFragment(){
         mTvActionCancel = v.findViewById(R.id.action_cancel)
         mTvActionOk = v.findViewById(R.id.action_ok)
         mEtEmail = v.findViewById(R.id.input_email)
+        mEtEmail.setText(emailSP)
         mTvActionCancel.setOnClickListener{
             println("onClick: closing dialog")
             dialog.dismiss()

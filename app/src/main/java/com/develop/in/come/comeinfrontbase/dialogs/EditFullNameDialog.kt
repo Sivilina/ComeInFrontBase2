@@ -23,6 +23,7 @@ class EditFullNameDialog: DialogFragment(){
         fun sendInputFullName(input:String)
     }
 
+
     lateinit var mOnInputListener: OnInputListener
     lateinit var mEtInputFirstName: EditText
     lateinit var mEtInputLastName: EditText
@@ -54,6 +55,7 @@ class EditFullNameDialog: DialogFragment(){
 
         mEtInputFirstName.setText(mSharedPreferences.getString(Constants.FIRSTNAME,""))
         mEtInputLastName.setText(mSharedPreferences.getString(Constants.LASTNAME,""))
+
         mTvActionCancel.setOnClickListener{
             println("onClick: closing dialog")
             dialog.dismiss()
@@ -64,7 +66,7 @@ class EditFullNameDialog: DialogFragment(){
             val lastname = mEtInputLastName.text.toString()
 
             mOnInputListener.sendInputFullName("$firstname $lastname")
-            if((!firstname.equals("")) && (!lastname.equals(""))){
+            if((!firstname.equals("")) || (!lastname.equals(""))){
                 val editor = mSharedPreferences.edit()
                 editor.putString(Constants.FIRSTNAME, firstname)
                 editor.putString(Constants.LASTNAME,lastname)

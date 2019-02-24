@@ -1,11 +1,19 @@
 package com.develop.`in`.come.comeinfrontbase.activities
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.provider.MediaStore
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.app.FragmentManager
@@ -17,7 +25,6 @@ import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.widget.*
 import com.develop.`in`.come.comeinfrontbase.R
-import com.develop.`in`.come.comeinfrontbase.fragments.ProfileFragment
 import com.develop.`in`.come.comeinfrontbase.fragments.SentFragment
 import com.develop.`in`.come.comeinfrontbase.fragments.SettingsFragment
 import com.develop.`in`.come.comeinfrontbase.fragments.TabFragment
@@ -33,9 +40,12 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.File
 import java.util.ArrayList
 
-
+interface OnBackPressedListener {
+    fun onBackPressed()
+}
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainActivity : AppCompatActivity() {
 
@@ -57,6 +67,16 @@ class MainActivity : AppCompatActivity() {
     lateinit var mSocket: Socket
     lateinit var mChApp: ChatApplication
     lateinit var mIbAddChat: ImageButton
+    lateinit var mCropImageUri: Uri
+
+    private val REQUEST_CAMERA = 0
+    val SELECT_FILE = 1
+    val REQUEST_CROP_PICTURE = 2
+    private val CROP_IMAGE_SIZE = 200
+    private val CROP_IMAGE_HIGHLIGHT_COLOR = 0x6aa746F4
+    lateinit var bitmapPic: Bitmap
+
+
 
     @SuppressLint("CommitTransaction")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +104,8 @@ class MainActivity : AppCompatActivity() {
             addChat()
         }
         */
+
+
     }
 
     fun initSharedPreferences(){
@@ -167,10 +189,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadProfileLayout(){
-
-        val ft = mFragmentManager.beginTransaction()
-        mDrawerLayout.closeDrawers()
-        ft.replace(R.id.containerView, ProfileFragment()).commit()
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
     }
 /*
 fun load(){
@@ -269,5 +289,24 @@ private fun handleError(error: Throwable) {
           mSocket.disconnect()
           super.onDestroy()
         }
+
+    override fun onBackPressed() {
+
+        var backPressedListener: OnBackPressedListener?=null
+        for (fragment in mFragmentManager.getFragments()) {
+            if (fragment is  OnBackPressedListener) {
+                backPressedListener = fragment as OnBackPressedListener;
+                break;
+            }
+        }
+
+        if (backPressedListener != null) {
+             backPressedListener.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
 
 }
