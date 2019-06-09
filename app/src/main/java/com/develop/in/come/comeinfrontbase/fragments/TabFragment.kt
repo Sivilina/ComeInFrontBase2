@@ -9,12 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.develop.`in`.come.comeinfrontbase.R
+import com.develop.`in`.come.comeinfrontbase.fragments.group_chat.FirstFragment
+import com.develop.`in`.come.comeinfrontbase.fragments.private_chat.FriendsFragment
 
 class TabFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val x = inflater.inflate(R.layout.tab_layout,null)
-        tabLayout = x.findViewById<View>(R.id.tabs) as TabLayout
-        viewPager = x.findViewById<View>(R.id.viewpager) as ViewPager
+        tabLayout = x.findViewById(R.id.tabs) as TabLayout
+        viewPager = x.findViewById(R.id.viewpager) as ViewPager
 
         viewPager.adapter = MyAdapter(childFragmentManager)
         tabLayout.post { tabLayout.setupWithViewPager(viewPager) }
@@ -24,7 +26,7 @@ class TabFragment : Fragment(){
         override fun getItem(position: Int): Fragment? {
             when(position){
                 0 -> return FirstFragment()
-                1 -> return SecondFragment()
+                1 -> return FriendsFragment()
             }
             return null
         }

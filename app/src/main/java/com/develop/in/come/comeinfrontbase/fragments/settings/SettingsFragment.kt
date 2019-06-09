@@ -1,11 +1,9 @@
-package com.develop.`in`.come.comeinfrontbase.fragments
+package com.develop.`in`.come.comeinfrontbase.fragments.settings
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.provider.SyncStateContract
-import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.develop.`in`.come.comeinfrontbase.R
 import com.develop.`in`.come.comeinfrontbase.activities.LoginActivity
-import com.develop.`in`.come.comeinfrontbase.activities.MainActivity
 import com.develop.`in`.come.comeinfrontbase.util.Constants
-import java.util.concurrent.CopyOnWriteArrayList
 
 class SettingsFragment : Fragment(){
     lateinit var mBtnLogout: Button
@@ -25,7 +21,7 @@ class SettingsFragment : Fragment(){
 
         val view = inflater.inflate(R.layout.layout_settings, container, false)
 
-        mBtnLogout = view.findViewById<View>(R.id.btn_logout) as Button
+        mBtnLogout = view.findViewById(R.id.btn_logout) as Button
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
 
         mBtnLogout.setOnClickListener{

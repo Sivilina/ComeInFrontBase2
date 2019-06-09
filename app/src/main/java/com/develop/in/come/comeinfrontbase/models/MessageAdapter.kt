@@ -47,8 +47,8 @@ class MessageAdapter(context: Context, private val mMessages: ArrayList<com.deve
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val mUsernameView: TextView? = itemView.findViewById<View>(R.id.username) as? TextView
-        private val mMessageView: TextView? = itemView.findViewById<View>(R.id.message) as? TextView
+        private val mUsernameView: TextView? = itemView.findViewById(R.id.username) as? TextView
+        private val mMessageView: TextView? = itemView.findViewById(R.id.message) as? TextView
 
         fun setUsername(username: String?) {
             if (mUsernameView != null) {

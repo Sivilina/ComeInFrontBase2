@@ -2,9 +2,16 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
-
+    <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#05d9a0"
+            android:id="@+id/toolbar_chat"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="ComeIn">
+    </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
             android:id="@+id/messages"
             android:layout_width="match_parent"
@@ -21,24 +28,34 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+        <ImageButton
+                android:id="@+id/ib_attach_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_attachment"
+                android:background="@color/white"
+                android:contentDescription="Attachment"/>
 
         <EditText
                 android:id="@+id/message_input"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/prompt_message"
+                android:hint="Enter message..."
                 android:imeActionId="63"
                 android:imeActionLabel="@string/action_send"
                 android:imeOptions="actionSend"
                 android:inputType="text"
                 android:maxLines="1"
-                android:singleLine="true" android:autofillHints=""/>
+                android:singleLine="true" android:autofillHints="" tools:ignore="UnusedAttribute"/>
+
         <ImageButton
-                android:id="@+id/send_button"
+                android:id="@+id/ib_send_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_send"
+                android:src="@drawable/ic_send"
+                android:layout_marginStart="20sp"
+                android:background="@color/white"
                 android:contentDescription="@string/action_send"/>
 
     </LinearLayout>

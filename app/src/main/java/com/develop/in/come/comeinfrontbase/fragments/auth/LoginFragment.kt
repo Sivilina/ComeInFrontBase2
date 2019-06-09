@@ -25,16 +25,19 @@ import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.lang.Exception
+import com.hbb20.CountryCodePicker
+
+
 
 class LoginFragment: Fragment() {
 
     lateinit var mEtPhone: EditText
     lateinit var mEtPassword: EditText
     lateinit var mBtLogin: Button
-    lateinit var mTiPhone: TextInputLayout
     lateinit var mTiPassword: TextInputLayout
     lateinit var mProgressBar: ProgressBar
     private var mSharedPreferences: SharedPreferences? = null
+    lateinit var ccp: CountryCodePicker
     val MEDIA_TYPE = MediaType.parse("application/json")
 
 
@@ -47,15 +50,21 @@ class LoginFragment: Fragment() {
     }
 
     private fun initViews(v: View) {
-
-        mEtPhone = v.findViewById<View>(R.id.et_phone) as EditText
-        mEtPassword = v.findViewById<View>(R.id.et_password) as EditText
-        mBtLogin = v.findViewById<View>(R.id.btn_login) as Button
-        mTiPhone = v.findViewById<View>(R.id.ti_phone) as TextInputLayout
-        mTiPassword = v.findViewById<View>(R.id.ti_password) as TextInputLayout
-        mProgressBar = v.findViewById<View>(R.id.progress) as ProgressBar
+        ccp = v.findViewById(R.id.ccp) as CountryCodePicker
+        mEtPhone = v.findViewById(R.id.et_phone) as EditText
+        ccp.registerCarrierNumberEditText(mEtPhone);
+        mEtPassword = v.findViewById(R.id.et_password) as EditText
+        mBtLogin = v.findViewById(R.id.btn_login) as Button
+        mTiPassword = v.findViewById(R.id.ti_password) as TextInputLayout
+        mProgressBar = v.findViewById(R.id.progress) as ProgressBar
 
         mBtLogin.setOnClickListener { view -> login() }
+        ccp.setPhoneNumberValidityChangeListener(CountryCodePicker.PhoneNumberValidityChangeListener() {
+            fun onValidityChanged(isValidNumber: Boolean) {
+                if(!isValidNumber)
+                    showSnackBarMessage("Phone is invalid")
+            }
+        });
       }
 
     private fun initSharedPreferences() {
@@ -63,29 +72,29 @@ class LoginFragment: Fragment() {
     }
 
     private fun login() {
-
+        println("Debug: checking fields")
         setError()
-
         val phone = mEtPhone.text.toString()
         val password = mEtPassword.text.toString()
 
         var err = 0
 
-        if (!validateFields(phone)) {
+        if (!ccp.isValidFullNumber) {
 
             err++
-            mTiPhone.error = "Phone should not be empty!"
+            showSnackBarMessage("Phone is invalid")
         }
 
         if (!validateFields(password)) {
 
             err++
-            mTiPassword.error = "Password should not be empty !"
+            mTiPassword.error = "Code should not be empty !"
         }
 
         if (err == 0) {
 
-            loginProcess(phone, password)
+            loginProcess(ccp.getFullNumberWithPlus(), password)
+            println("Debug: phone " + ccp.fullNumberWithPlus)
 
         } else {
 
@@ -95,11 +104,11 @@ class LoginFragment: Fragment() {
 
     private fun setError() {
 
-        mTiPhone.error = null
         mTiPassword.error = null
     }
 
     private fun loginProcess(phone: String, password: String) {
+        print("Debug: logining..")
         val client = OkHttpClient()
         val postdata = JSONObject()
         try {
@@ -116,7 +125,7 @@ class LoginFragment: Fragment() {
         )
 
         val request = Request.Builder()
-            .url(Constants.BASE_URL + "/users")
+            .url(Constants.BASE_URL + "auth")
             .post(body)
             .build()
 
@@ -125,7 +134,6 @@ class LoginFragment: Fragment() {
                 val mMessage = e.message.toString()
                 println(mMessage)
                 showSnackBarMessage(mMessage)
-                handleError(mMessage);
             }
 
             @Throws(IOException::class)
@@ -133,6 +141,7 @@ class LoginFragment: Fragment() {
 
                 val mMessage = response.body().string()
                 println(mMessage)
+
                 if (response.isSuccessful()){
                     try {
 
@@ -141,7 +150,7 @@ class LoginFragment: Fragment() {
                         e.printStackTrace();
                     }
                 } else {
-                    handleError(mMessage)
+                    handleError(response.toString())
                 }
             }
         })
@@ -150,40 +159,36 @@ class LoginFragment: Fragment() {
     private fun handleResponse(response: String, status: Int) {
         println(response)
         println("Status Code: $status")
-
-
         val json = JSONObject(response)
-        val usernameExist = json.getBoolean("usernameExist")
         val data = json.getJSONObject("data")
         val user = User()
         user.token = data.getString("token")
         user.phone = data.getJSONObject("user").getString("phone")
         user.created_at = data.getJSONObject("user").getString("createdAt")
-        println("Token: ${user.token}")
-
-
-        if(usernameExist) {
-            user.username = data.getJSONObject("user").getString("username")
-            var profile = data.getJSONObject("user").getJSONObject("profile")
-            if(profile.has("firstname"))
-                user.firstname = profile.getString("firstname")
-            if(profile.has("lastname"))
-                user.lastname = profile.getString("lastname")
-            if(profile.has("email"))
-                user.email = profile.getString("email")
-            if(profile.has("about"))
-                user.aboutMe = profile.getString("about")
-
-            addUserToSharedPreference(user)
-            val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
-        } else {
+        var username = data.getJSONObject("user").getString("username")
+        if(username == "null"){
+            println("Unauthorised")
             addUserToSharedPreference(user)
             val intent = Intent(activity, NewProfileActivity::class.java)
             startActivity(intent)
+        } else {
+            println("Authorised")
+            user.username = data.getJSONObject("user").getString("username")
+            val profile = data.getJSONObject("user").getJSONObject("profile")
+            user.firstname = profile.getString("firstname")
+            user.lastname = profile.getString("lastname")
+            user.email = profile.getString("email")
+            user.aboutMe = profile.getString("about")
+            addUserToSharedPreference(user)
+            val intent = Intent(activity, MainActivity::class.java)
+            startActivity(intent)
         }
+        println("Debug: Token: ${user.token}")
+
 
     }
+
+
     fun addUserToSharedPreference(u:User){
         val editor = mSharedPreferences!!.edit()
         val gson = Gson()
@@ -193,20 +198,14 @@ class LoginFragment: Fragment() {
             editor.putString(Constants.FIRSTNAME, u.firstname)
         if(!u.lastname.isNullOrEmpty())
             editor.putString(Constants.LASTNAME,u.lastname)
-
-
         editor.apply()
+        showSnackBarMessage(u.toString())
     }
 
     private fun handleError(error: String) {
-
-//        mProgressBar.visibility = View.GONE
- //       mBtLogin.visibility = View.VISIBLE
         val json = JSONObject(error)
-
-
         println(error)
-        showSnackBarMessage("Error: " + json.getString("error"))
+        showSnackBarMessage("Error: " + json.getJSONObject("error").getString("message"))
     }
 
     private fun showSnackBarMessage(message: String) {

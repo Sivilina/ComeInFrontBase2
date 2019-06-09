@@ -23,7 +23,8 @@ class EditFullNameDialog: DialogFragment(){
         fun sendInputFullName(input:String)
     }
 
-
+    var firstnameSP :String?=null
+    var lastnameSP : String?=null
     lateinit var mOnInputListener: OnInputListener
     lateinit var mEtInputFirstName: EditText
     lateinit var mEtInputLastName: EditText
@@ -34,7 +35,7 @@ class EditFullNameDialog: DialogFragment(){
         val view = inflater.inflate(R.layout.dialog_edit_fullname,container,false)
 
         try{
-            mOnInputListener = targetFragment as OnInputListener
+            mOnInputListener = activity as OnInputListener
         }catch (e: ClassCastException){
             println("ClassCastException: ${e.message}")
         }
@@ -48,13 +49,15 @@ class EditFullNameDialog: DialogFragment(){
     }
 
     fun initviews(v: View){
-        mTvActionCancel = v.findViewById(R.id.action_cancel)
-        mTvActionOk = v.findViewById(R.id.action_ok)
-        mEtInputFirstName = v.findViewById(R.id.input_first_name)
-        mEtInputLastName = v.findViewById(R.id.input_last_name)
+        mTvActionCancel = v.findViewById(R.id.action_cancel) as TextView
+        mTvActionOk = v.findViewById(R.id.action_ok) as TextView
+        mEtInputFirstName = v.findViewById(R.id.input_first_name) as EditText
+        mEtInputLastName = v.findViewById(R.id.input_last_name) as EditText
 
-        mEtInputFirstName.setText(mSharedPreferences.getString(Constants.FIRSTNAME,""))
-        mEtInputLastName.setText(mSharedPreferences.getString(Constants.LASTNAME,""))
+        mEtInputFirstName.setText(firstnameSP)
+        mEtInputLastName.setText(lastnameSP)
+   //     mEtInputFirstName.setText(mSharedPreferences.getString(Constants.FIRSTNAME,""))
+     //   mEtInputLastName.setText(mSharedPreferences.getString(Constants.LASTNAME,""))
 
         mTvActionCancel.setOnClickListener{
             println("onClick: closing dialog")

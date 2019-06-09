@@ -1,28 +1,25 @@
-package com.develop.`in`.come.comeinfrontbase.fragments
+package com.develop.`in`.come.comeinfrontbase.fragments.private_chat
 
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageButton
 import android.widget.ListView
 import com.develop.`in`.come.comeinfrontbase.R
-import com.develop.`in`.come.comeinfrontbase.activities.ChatActivity
-import com.develop.`in`.come.comeinfrontbase.activities.MainActivity
+import com.develop.`in`.come.comeinfrontbase.activities.ContactListActivity
 import com.develop.`in`.come.comeinfrontbase.models.User
-import com.develop.`in`.come.comeinfrontbase.util.Constants
-import com.google.gson.Gson
 import java.util.ArrayList
 
-class SecondFragment : Fragment(){
+class FriendsFragment : Fragment(){
     lateinit var mlvUserList: ListView
     lateinit var adapter: ArrayAdapter<*>
     lateinit var mSharedPreferences: SharedPreferences
+    lateinit var mIbAddFriend: ImageButton
 
     fun getStringArrayFromModel(modelArrayList: ArrayList<User>): ArrayList<String> {
 
@@ -44,6 +41,11 @@ class SecondFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.layout_friends, container, false)
 
+       mIbAddFriend = view.findViewById(R.id.ib_add_friend) as ImageButton
+       mIbAddFriend.setOnClickListener {
+           val intent = Intent(activity, ContactListActivity::class.java)
+           startActivity(intent)
+       }
      /*   mlvUserList = view.findViewById(R.id.rv_UserList) as ListView
         adapter = ArrayAdapter<String>(this.context, android.R.layout.simple_selectable_list_item, getStringArrayFromModel((activity as MainActivity).getUserList()))
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)

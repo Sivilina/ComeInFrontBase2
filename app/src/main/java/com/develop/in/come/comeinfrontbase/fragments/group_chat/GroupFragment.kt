@@ -1,4 +1,4 @@
-package com.develop.`in`.come.comeinfrontbase.fragments.chat
+package com.develop.`in`.come.comeinfrontbase.fragments.group_chat
 
 import android.app.Activity
 import android.content.Context
@@ -45,6 +45,7 @@ class GroupFragment : Fragment() {
     lateinit var mUsername: String
     lateinit var mGroupName: String
     var isConnected: Boolean? = true
+    var showOnlyTop = true
 
     private val onConnect = Emitter.Listener {
         activity!!.runOnUiThread {
@@ -85,7 +86,6 @@ class GroupFragment : Fragment() {
             val data = args[0] as JSONObject
             val username: String
             val message: String
-
             try {
                 username = data.getString("username")
                 message = data.getString("message")
@@ -204,15 +204,15 @@ class GroupFragment : Fragment() {
 
         setHasOptionsMenu(true)
         mSocket.connect()
-        mSocket.on(Socket.EVENT_CONNECT, onConnect)
-        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect)
-        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
-        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError)
-        mSocket.on("new message", onNewMessage)
-        mSocket.on("user joined", onUserJoined)
-        mSocket.on("user left", onUserLeft)
-        mSocket.on("typing", onTyping)
-        mSocket.on("stop typing", onStopTyping)
+//        mSocket.on(Socket.EVENT_CONNECT, onConnect)
+//        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect)
+//        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
+//        mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError)
+//        mSocket.on("new message", onNewMessage)
+//        mSocket.on("user joined", onUserJoined)
+//        mSocket.on("user left", onUserLeft)
+//        mSocket.on("typing", onTyping)
+//        mSocket.on("stop typing", onStopTyping)
 
     }
 
@@ -227,25 +227,25 @@ class GroupFragment : Fragment() {
         super.onDestroy()
 
         mSocket.disconnect()
-        mSocket.off(Socket.EVENT_CONNECT, onConnect)
-        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect)
-        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError)
-        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError)
-        mSocket.off("new message", onNewMessage)
-        mSocket.off("user joined", onUserJoined)
-        mSocket.off("user left", onUserLeft)
-        mSocket.off("typing", onTyping)
-        mSocket.off("stop typing", onStopTyping)
+//        mSocket.off(Socket.EVENT_CONNECT, onConnect)
+//        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect)
+//        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError)
+//        mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError)
+//        mSocket.off("new message", onNewMessage)
+//        mSocket.off("user joined", onUserJoined)
+//        mSocket.off("user left", onUserLeft)
+//        mSocket.off("typing", onTyping)
+//        mSocket.off("stop typing", onStopTyping)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mMessagesView = view.findViewById<View>(R.id.messages) as RecyclerView
+        mMessagesView = view.findViewById(R.id.messages) as RecyclerView
         mMessagesView.layoutManager = LinearLayoutManager(activity)
         mMessagesView.adapter = mAdapter
 
-        mInputMessageView = view.findViewById<View>(R.id.message_input) as EditText
+        mInputMessageView = view.findViewById(R.id.message_input) as EditText
         mInputMessageView.setOnEditorActionListener(TextView.OnEditorActionListener { v, id, event ->
             if (id == 63 || id == EditorInfo.IME_NULL) {
                 attemptSend()
@@ -276,7 +276,7 @@ class GroupFragment : Fragment() {
             override fun afterTextChanged(s: Editable) {}
         })
 
-        val sendButton = view.findViewById<View>(R.id.send_button) as ImageButton
+        val sendButton = view.findViewById(R.id.ib_send_message) as ImageButton
         sendButton.setOnClickListener { attemptSend() }
     }
 
@@ -332,21 +332,19 @@ class GroupFragment : Fragment() {
 
     private fun attemptSend() {
         if (!mSocket.connected()) return
-
         mTyping = false
-
         val message = mInputMessageView.text.toString().trim { it <= ' ' }
         if (TextUtils.isEmpty(message)) {
             mInputMessageView.requestFocus()
             return
         }
-
         mInputMessageView.setText("")
         addMessage(mUsername, message)
 
         // perform the sending message attempt.
         mSocket.emit("new message", message)
     }
+
 
 
     private fun scrollToBottom() {

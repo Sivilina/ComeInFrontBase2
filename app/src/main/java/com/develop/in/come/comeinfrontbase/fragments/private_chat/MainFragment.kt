@@ -1,15 +1,20 @@
-package com.develop.`in`.come.comeinfrontbase.fragments.chat
+package com.develop.`in`.come.comeinfrontbase.fragments.private_chat
 
 import android.app.Activity
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +23,13 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import com.develop.`in`.come.comeinfrontbase.R
+import com.develop.`in`.come.comeinfrontbase.activities.ChatActivity
 import com.develop.`in`.come.comeinfrontbase.models.Message
 import com.develop.`in`.come.comeinfrontbase.models.MessageAdapter
-import com.develop.`in`.come.comeinfrontbase.network.ChatApplication
+import com.develop.`in`.come.comeinfrontbase.models.User
+import com.develop.`in`.come.comeinfrontbase.util.Constants
+import com.google.gson.Gson
 import io.socket.client.Socket
-import io.socket.emitter.Emitter
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.ArrayList
@@ -39,10 +46,12 @@ class MainFragment : Fragment() {
     lateinit var mUsername: String
     lateinit var toId: String
     lateinit var mSocket: Socket
-
+    lateinit var mBtnSend: ImageButton
+    lateinit var mSharedPreferences: SharedPreferences
 
     private val isConnected = true
-
+    private val NOTIFICATION_ID = 127
+/*
     private val onNewMessage = Emitter.Listener { args ->
         activity!!.runOnUiThread(Runnable {
             val data = args[0] as JSONObject
@@ -62,7 +71,7 @@ class MainFragment : Fragment() {
         })
     }
 
-
+*/
     // This event fires 1st, before creation of fragment or any views
     // The onAttach method is called when the Fragment instance is associated with an Activity.
     // This does not mean the Activity is fully initialized.
@@ -74,17 +83,19 @@ class MainFragment : Fragment() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // setHasOptionsMenu(true);
-
-        val app = activity!!.application as ChatApplication
+        initSharedPreferences()
+        setHasOptionsMenu(true);
+           /*  val app = activity!!.application as ChatApplication
         mSocket = app.socket!!
         println(mSocket.connected())
-        mSocket.on("getPrivateMessage", onNewMessage)
+        mSocket.on("getPrivateMessage", onNewMessage)*/
 
+    }
+
+    private fun initSharedPreferences() {
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity)
     }
 
     override fun onCreateView(
@@ -97,18 +108,18 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
 
-        mSocket.off("getPrivateMessage", onNewMessage)
+     //   mSocket.off("getPrivateMessage", onNewMessage)
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mMessagesView = view.findViewById<View>(R.id.messages) as RecyclerView
+        mMessagesView = view.findViewById(R.id.messages) as RecyclerView
         mMessagesView.layoutManager = LinearLayoutManager(activity)
         mMessagesView.adapter = mAdapter
 
-        mInputMessageView = view.findViewById<View>(R.id.message_input) as EditText
+        mInputMessageView = view.findViewById(R.id.message_input) as EditText
         mInputMessageView.setOnEditorActionListener(TextView.OnEditorActionListener { v, id, event ->
             if (id == 63 || id == EditorInfo.IME_NULL) {
                 attemptSend()
@@ -117,16 +128,22 @@ class MainFragment : Fragment() {
             }
             false
         })
+
+        mBtnSend = view.findViewById(R.id.ib_send_message) as ImageButton
+        val gson = Gson()
+        val json = mSharedPreferences.getString(Constants.CURRENT_USER, "")
+        val currentUser = gson.fromJson<Any>(json, User::class.java) as User
+
         val intent = activity!!.intent
-        mUsername = intent.getStringExtra("username")
-
-        toId = intent.getStringExtra("toId")
-        val toName = intent.getStringExtra("toUser")
+        //mUsername = intent.getStringExtra("username")
+        mUsername = currentUser.username!!
+        toId = "1"
+        //toId = intent.getStringExtra("toId")
+       // val toName = intent.getStringExtra("toUser")
         //Debug: //println("$mUsername!!!!!!!$toId")
-        addLog(toName)
+       // addLog(toName)
 
-        val sendButton = view.findViewById<View>(R.id.send_button) as ImageButton
-        sendButton.setOnClickListener {
+        mBtnSend.setOnClickListener {
             attemptSend()
             //Debug: //println("try to send!!!!!")
         }
@@ -153,7 +170,7 @@ class MainFragment : Fragment() {
 
 
     private fun attemptSend() {
-        if (!mSocket.connected()) return
+        //if (!mSocket.connected()) return
 
         mTyping = false
         val message = mInputMessageView.text.toString().trim { it <= ' ' }
@@ -176,7 +193,7 @@ class MainFragment : Fragment() {
         addMessage(mUsername, message)
         println(sentMessage)
         // perform the sending message attempt.
-        mSocket.emit("sendPrivateMessage", sentMessage)
+        //mSocket.emit("sendPrivateMessage", sentMessage)
     }
 
 
@@ -193,6 +210,8 @@ class MainFragment : Fragment() {
         scrollToBottom()
     }
 
+
+
     companion object {
 
         private val TAG = "MainFragment"
@@ -201,5 +220,6 @@ class MainFragment : Fragment() {
 
         private val TYPING_TIMER_LENGTH = 600
     }
+
 
 }

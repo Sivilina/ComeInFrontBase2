@@ -11,10 +11,12 @@ import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.develop.`in`.come.comeinfrontbase.R
 import com.develop.`in`.come.comeinfrontbase.fragments.auth.LoginFragment
 import com.develop.`in`.come.comeinfrontbase.util.Constants
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         var token = mSharedPreferences.getString(Constants.TOKEN,null)
         if (token != null) {
@@ -36,7 +39,12 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
+    /*    val appId = mSharedPreferences.getString(Constants.APPID,null)
+        if(appId == null){
+            val intent = Intent(this, StartActivity::class.java)
+            startActivity(intent)
+        }
+*/
         if (savedInstanceState == null) {
             loadFragment()
         }

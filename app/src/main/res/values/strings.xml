@@ -74,4 +74,25 @@
     <string name="username_required">Username (required)</string>
     <string name="continue_next"><![CDATA[Continue ->]]></string>
     <string name="iconforemail">Icon for email</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="change_your_description">Change Your Description</string>
+    <string name="write_something_about_you_age_hobbies_etc">Write something about you: age, hobbies, etc.</string>
+    <string name="ok">OK</string>
+    <string name="cancel2">CANCEL</string>
+    <string name="search">Search</string>
+    <string name="group_name_required">Group name (required)</string>
+    <string name="add_group">add_group</string>
+    <string name="save">Save</string>
+    <integer-array name="img_id_arr">
+        <item>@mipmap/ic_start_img1</item>
+        <item>@mipmap/ic_start_img2</item>
+        <item>@mipmap/ic_start_img3</item>
+        <item>@mipmap/ic_start_img4</item>
+        <item>@mipmap/ic_start_img5</item>
+    </integer-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

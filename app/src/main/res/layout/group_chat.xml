@@ -6,7 +6,7 @@
                                              android:layout_height="match_parent" android:id="@+id/group_chat"
                                              tools:context=".activities.GroupActivity">
     <fragment
-            class="com.develop.in.come.comeinfrontbase.fragments.chat.GroupFragment"
+            class="com.develop.in.come.comeinfrontbase.fragments.private_chat.GroupFragment"
             android:id="@+id/mf_GroupChat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

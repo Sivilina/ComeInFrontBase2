@@ -2,6 +2,7 @@ package com.develop.`in`.come.comeinfrontbase.models
 
 class User {
 
+    var userid: String? = null
     var firstname: String? = null
     var lastname: String? = null
     var username: String? = null
@@ -20,10 +21,11 @@ class User {
         this.password = u.password
         this.created_at = u.created_at
         this.token = u.token
+        this.userid = u.userid
     }
 
-    constructor(email: String, password: String) {
-        this.email = email
+    constructor(phone: String, password: String) {
+        this.phone = phone
         this.password = password
     }
 

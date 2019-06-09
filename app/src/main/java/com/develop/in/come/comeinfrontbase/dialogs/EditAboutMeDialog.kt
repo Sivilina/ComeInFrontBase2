@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.develop.`in`.come.comeinfrontbase.R
 import java.lang.ClassCastException
 
-class EditAboutMeDialog: DialogFragment(){
+    class EditAboutMeDialog: DialogFragment(){
 
     val TAG = "EditAboutMeDialog"
     interface OnInputListener{
@@ -30,7 +30,7 @@ class EditAboutMeDialog: DialogFragment(){
         val view = inflater.inflate(R.layout.dialog_edit_about_me,container,false)
 
         try{
-            mOnInputListener = targetFragment as OnInputListener
+            mOnInputListener = activity as OnInputListener
         }catch (e: ClassCastException){
             println("ClassCastException: ${e.message}")
         }
@@ -44,9 +44,9 @@ class EditAboutMeDialog: DialogFragment(){
     }
 
     fun initviews(v: View){
-        mTvActionCancel = v.findViewById(R.id.action_cancel)
-        mTvActionOk = v.findViewById(R.id.action_ok)
-        mEtAboutMe = v.findViewById(R.id.input_about_me)
+        mTvActionCancel = v.findViewById(R.id.action_cancel) as TextView
+        mTvActionOk = v.findViewById(R.id.action_ok) as TextView
+        mEtAboutMe = v.findViewById(R.id.input_about_me) as EditText
         mEtAboutMe.setText(aboutMeSP)
 
         mTvActionCancel.setOnClickListener{

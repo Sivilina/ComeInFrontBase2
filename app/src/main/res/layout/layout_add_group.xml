@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/layout_add_group"
+              android:orientation="vertical"
+>
+    <android.support.v7.widget.Toolbar android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       android:background="#05d9a0"
+                                       android:id="@+id/toolbar_newGroup"
+                                       android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                                       app:title="ComeIn"/>
+    <ImageView
+            android:id="@+id/iv_group_new_avatar"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/child_margin_top"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:contentDescription="@string/avatar"/>
+    <LinearLayout
+            android:id="@+id/ib_upload_group_avatar_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+        <ImageButton
+                android:background="@color/white"
+                android:layout_width="50dp"
+                tools:src="@drawable/ic_camera" android:layout_height="50dp" android:contentDescription="camera"
+        />
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="Take photo"
+        />
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/ib_upload_group_avatar_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+    >
+        <ImageButton
+                android:layout_width="50dp"
+                android:background="@color/white"
+                android:layout_marginBottom="@dimen/child_margin_top"
+                android:src="@drawable/ic_gallery" android:layout_height="50dp" android:contentDescription="gallery"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Upload from gallery"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+        />
+    </LinearLayout>
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/ti_groupname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/child_margin_top">
+        <EditText
+                android:id="@+id/et_groupname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/group_name_required"
+                android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/ti_groupdescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/child_margin_top">
+        <EditText
+                android:id="@+id/et_groupdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Description"
+                android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+    <MultiAutoCompleteTextView
+            android:hint="Select tag"
+            android:gravity="center"
+            android:completionThreshold="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tags"/>
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/ti_group_first_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/child_margin_top">
+        <EditText
+                android:id="@+id/et_group_first_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Enter first message: This message will tell users about goal and rules of the group"
+                android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+    <Button
+            android:text="Save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_save_group"/>
+
+
+</LinearLayout>

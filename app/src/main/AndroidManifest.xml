@@ -18,9 +18,19 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_foreground"
             android:supportsRtl="true"
-           android:theme="@style/AppTheme"
-            tools:targetApi="p"
-              >
+            android:theme="@style/AppTheme"
+            tools:targetApi="p">
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.easyphotopicker.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true"
+                tools:replace="android:authorities">
+        <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                tools:replace="android:resource"/>
+        </provider>
         <activity android:name=".activities.LoginActivity">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.MAIN"/>
@@ -38,9 +48,27 @@
         <activity android:name=".activities.NewProfileActivity"/>
         <activity android:name=".activities.GroupActivity"/>
         <activity android:name=".activities.ProfileActivity"/>
-        <activity android:name="eu.janmuller.android.simplecropimage.CropImage" />
+        <activity android:name=".activities.ContactListActivity">
+        </activity>
+        <activity android:name=".activities.NewGroupActivity">
+        </activity>
 
+        <service android:name="util.TestFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service android:name="util.TestFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
+        <activity
+                android:name=".activities.StartActivity"
+                android:label="@string/title_activity_start"
+                android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

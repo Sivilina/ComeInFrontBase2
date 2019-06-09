@@ -13,7 +13,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="ComeIn"/>
     <fragment
-            class="com.develop.in.come.comeinfrontbase.fragments.chat.MainFragment"
+            class="com.develop.in.come.comeinfrontbase.fragments.private_chat.MainFragment"
             android:id="@+id/mf_Chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

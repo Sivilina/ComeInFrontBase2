@@ -1,15 +1,11 @@
 package com.develop.in.come.comeinfrontbase.util;
 
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
+import android.graphics.*;
 import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 
 public class GraphicsUtil
 {
@@ -39,9 +35,7 @@ public class GraphicsUtil
         return output;
     }
 
-    public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
-        int targetWidth = 300;
-        int targetHeight = 300;
+    public Bitmap getRoundedShape(Bitmap scaleBitmapImage, int targetWidth, int targetHeight) {
         Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
                 targetHeight,Bitmap.Config.ARGB_8888);
 
@@ -61,6 +55,25 @@ public class GraphicsUtil
                 new Rect(0, 0, targetWidth,
                         targetHeight), null);
         return targetBitmap;
+    }
+    // method for bitmap to base64
+    public String encodeTobase64(Bitmap image) {
+        Bitmap immage = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+        return imageEncoded;
+    }
+    // method for base64 to bitmap
+    public Bitmap decodeBase64(String input) {
+        if(input!="") {
+            byte[] decodedByte = Base64.decode(input, 0);
+            return BitmapFactory
+                    .decodeByteArray(decodedByte, 0, decodedByte.length);
+        }
+        return null;
     }
 
 }

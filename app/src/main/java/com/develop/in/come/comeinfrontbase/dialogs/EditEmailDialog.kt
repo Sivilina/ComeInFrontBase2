@@ -30,7 +30,7 @@ class EditEmailDialog: DialogFragment(){
         val view = inflater.inflate(R.layout.dialog_edit_email,container,false)
 
         try{
-            mOnInputListener = targetFragment as OnInputListener
+            mOnInputListener = activity as OnInputListener
         }catch (e: ClassCastException){
             println("ClassCastException: ${e.message}")
         }
@@ -44,9 +44,9 @@ class EditEmailDialog: DialogFragment(){
     }
 
     fun initviews(v: View){
-        mTvActionCancel = v.findViewById(R.id.action_cancel)
-        mTvActionOk = v.findViewById(R.id.action_ok)
-        mEtEmail = v.findViewById(R.id.input_email)
+        mTvActionCancel = v.findViewById(R.id.action_cancel) as TextView
+        mTvActionOk = v.findViewById(R.id.action_ok) as TextView
+        mEtEmail = v.findViewById(R.id.input_email) as EditText
         mEtEmail.setText(emailSP)
         mTvActionCancel.setOnClickListener{
             println("onClick: closing dialog")
