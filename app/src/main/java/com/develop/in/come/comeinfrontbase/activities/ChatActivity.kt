@@ -1,8 +1,8 @@
 package com.develop.`in`.come.comeinfrontbase.activities
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import com.develop.`in`.come.comeinfrontbase.R
 import android.content.Intent

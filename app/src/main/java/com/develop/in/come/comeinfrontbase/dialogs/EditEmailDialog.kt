@@ -3,7 +3,7 @@ package com.develop.`in`.come.comeinfrontbase.dialogs
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +13,7 @@ import com.develop.`in`.come.comeinfrontbase.R
 import com.develop.`in`.come.comeinfrontbase.util.Constants
 import java.lang.ClassCastException
 
-class EditEmailDialog: DialogFragment(){
+class EditEmailDialog: androidx.fragment.app.DialogFragment(){
 
     val TAG = "EditEmailDialog"
     interface OnInputListener{

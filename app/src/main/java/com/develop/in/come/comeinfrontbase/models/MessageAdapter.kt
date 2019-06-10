@@ -1,7 +1,7 @@
 package com.develop.`in`.come.comeinfrontbase.models
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import java.util.ArrayList
 
 
 class MessageAdapter(context: Context, private val mMessages: ArrayList<com.develop.`in`.come.comeinfrontbase.models.Message>) :
-    RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
     private val mUsernameColors: IntArray
 
     init {
@@ -46,7 +46,7 @@ class MessageAdapter(context: Context, private val mMessages: ArrayList<com.deve
         return mMessages[position].mType
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         private val mUsernameView: TextView? = itemView.findViewById(R.id.username) as? TextView
         private val mMessageView: TextView? = itemView.findViewById(R.id.message) as? TextView
 

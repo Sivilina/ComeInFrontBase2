@@ -14,13 +14,13 @@ import android.os.Environment
 import android.os.StrictMode
 import android.preference.PreferenceManager
 import android.provider.MediaStore
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
-import android.support.v4.app.*
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.app.*
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import android.util.AttributeSet
 import android.util.Base64
 import android.util.DisplayMetrics
@@ -61,7 +61,7 @@ class ProfileActivity: AppCompatActivity(), OnBackPressedListener{
     lateinit var mSharedPreferences: SharedPreferences
     lateinit var mToolbar: Toolbar
     val MEDIA_TYPE = MediaType.parse("application/json")
-    lateinit var mFragmentTransaction: FragmentTransaction
+    lateinit var mFragmentTransaction: androidx.fragment.app.FragmentTransaction
 
     lateinit var mAvatarFragment: ProfileAvatarFragment
     lateinit var mProfileFragment: ProfileFragment
@@ -166,7 +166,7 @@ class ProfileActivity: AppCompatActivity(), OnBackPressedListener{
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: okhttp3.Response) {
 
-                val mMessage = response.body().string()
+                val mMessage = response.body()!!.string()
                 println(mMessage)
                 if (response.isSuccessful()){
                     try {

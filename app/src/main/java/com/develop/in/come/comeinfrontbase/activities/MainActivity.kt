@@ -1,7 +1,6 @@
 package com.develop.`in`.come.comeinfrontbase.activities
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -11,18 +10,17 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.View
-import android.support.v7.widget.Toolbar
-import android.text.InputType
+import androidx.appcompat.widget.Toolbar
 import android.widget.*
 import com.develop.`in`.come.comeinfrontbase.R
 import com.develop.`in`.come.comeinfrontbase.fragments.SentFragment
@@ -52,12 +50,12 @@ interface OnBackPressedListener {
 class MainActivity : AppCompatActivity() {
 
 
+
     lateinit var mUserList: ArrayList<User1>
-    lateinit var mDrawerLayout: DrawerLayout
+    lateinit var mDrawerLayout: androidx.drawerlayout.widget.DrawerLayout
     lateinit var mNavigationView: NavigationView
-    lateinit var mFragmentManager: FragmentManager
-    lateinit var mFM: android.app.FragmentManager
-    lateinit var mFragmentTransaction: FragmentTransaction
+    lateinit var mFragmentManager: androidx.fragment.app.FragmentManager
+    lateinit var mFragmentTransaction: androidx.fragment.app.FragmentTransaction
     lateinit var mTvName: TextView
     lateinit var mIvAvatar: ImageView
     lateinit var mTvEmail: TextView
@@ -75,6 +73,7 @@ class MainActivity : AppCompatActivity() {
     var isConnected: Boolean? = true
     lateinit var mNotificationManager: NotificationManager
     val MEDIA_TYPE = MediaType.parse("application/json")
+
 
 
 
@@ -101,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         //load()
     }
     fun initViews(){
-        mDrawerLayout = findViewById<View>(R.id.drawerLayout) as DrawerLayout
+        mDrawerLayout = findViewById<View>(R.id.drawerLayout) as androidx.drawerlayout.widget.DrawerLayout
         mNavigationView = findViewById<View>(R.id.navView) as NavigationView
         val header = mNavigationView.getHeaderView(0)
         mTvName = header.findViewById(R.id.tv_name) as TextView
@@ -446,7 +445,7 @@ private fun handleError(error: Throwable) {
             override fun onResponse(call: Call, response: okhttp3.Response) {
 
                 user = com.develop.`in`.come.comeinfrontbase.models.User()
-                val mMessage = response.body().string()
+                val mMessage = response.body()!!.string()
                 println(mMessage)
                 if (response.isSuccessful()){
                     try {

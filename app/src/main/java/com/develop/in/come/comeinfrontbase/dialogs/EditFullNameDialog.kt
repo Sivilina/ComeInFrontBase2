@@ -5,7 +5,7 @@ import android.app.Dialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ import com.develop.`in`.come.comeinfrontbase.util.Constants
 import com.google.gson.Gson
 import java.lang.ClassCastException
 
-class EditFullNameDialog: DialogFragment(){
+class EditFullNameDialog: androidx.fragment.app.DialogFragment(){
 
     val TAG = "EditFullNameDialog"
     interface OnInputListener{

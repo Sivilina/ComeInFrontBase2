@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "557620785499",
+    "firebase_url": "https://comein-e87d6.firebaseio.com",
+    "project_id": "comein-e87d6",
+    "storage_bucket": "comein-e87d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557620785499:android:10a8e4ee89acb1aa",
+        "android_client_info": {
+          "package_name": "com.develop.in.come.comeinfrontbase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557620785499-btas6ehtoqiddilubjpa4s8okc9tbprj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.develop.in.come.comeinfrontbase",
+            "certificate_hash": "31fc0f43e6a41ceeee54e93ff4ca30e4b8442167"
+          }
+        },
+        {
+          "client_id": "557620785499-uth5kd8bqip80jui1gq9jr1laurtuk7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6QzI5ZbXRDRyguoHrRZ0-IbGw_FE824A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557620785499-uth5kd8bqip80jui1gq9jr1laurtuk7q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

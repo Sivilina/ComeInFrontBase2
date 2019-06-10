@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent" android:id="@+id/group_chat"
-                                             tools:context=".activities.GroupActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent" android:id="@+id/group_chat"
+                                                   tools:context=".activities.GroupActivity">
     <fragment
-            class="com.develop.in.come.comeinfrontbase.fragments.private_chat.GroupFragment"
+            class="com.develop.in.come.comeinfrontbase.fragments.group_chat.GroupFragment"
             android:id="@+id/mf_GroupChat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

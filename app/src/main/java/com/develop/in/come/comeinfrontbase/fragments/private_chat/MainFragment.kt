@@ -11,9 +11,9 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -35,12 +35,12 @@ import org.json.JSONObject
 import java.util.ArrayList
 
 
-class MainFragment : Fragment() {
+class MainFragment : androidx.fragment.app.Fragment() {
 
-    lateinit var mMessagesView: RecyclerView
+    lateinit var mMessagesView: androidx.recyclerview.widget.RecyclerView
     lateinit var mInputMessageView: EditText
     var mMessages = ArrayList<Message>()
-    lateinit var mAdapter: RecyclerView.Adapter<*>
+    lateinit var mAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
     var mTyping = false
     val mTypingHandler = Handler()
     lateinit var mUsername: String
@@ -115,8 +115,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mMessagesView = view.findViewById(R.id.messages) as RecyclerView
-        mMessagesView.layoutManager = LinearLayoutManager(activity)
+        mMessagesView = view.findViewById(R.id.messages) as androidx.recyclerview.widget.RecyclerView
+        mMessagesView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         mMessagesView.adapter = mAdapter
 
         mInputMessageView = view.findViewById(R.id.message_input) as EditText

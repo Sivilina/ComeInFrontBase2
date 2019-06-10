@@ -3,8 +3,8 @@ package com.develop.`in`.come.comeinfrontbase.dialogs
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.design.widget.Snackbar
-import android.support.v4.app.DialogFragment
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.lang.ClassCastException
 
-class EditUsernameDialog: DialogFragment(){
+class EditUsernameDialog: androidx.fragment.app.DialogFragment(){
 
     val TAG = "EditUsernameDialog"
     interface OnInputListener{
@@ -95,7 +95,7 @@ class EditUsernameDialog: DialogFragment(){
                 @Throws(IOException::class)
                 override fun onResponse(call: Call, response: okhttp3.Response) {
 
-                    val mMessage = response.body().string()
+                    val mMessage = response.body()!!.string()
                     println(mMessage)
                     if (response.isSuccessful()){
                         try {

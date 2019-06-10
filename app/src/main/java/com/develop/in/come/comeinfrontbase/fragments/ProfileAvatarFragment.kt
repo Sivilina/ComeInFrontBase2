@@ -13,12 +13,12 @@ import android.os.Bundle
 import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
-import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.widget.Toolbar
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.appcompat.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +49,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class ProfileAvatarFragment : Fragment() {
+class ProfileAvatarFragment : androidx.fragment.app.Fragment() {
 
     lateinit var mSharedPreferences: SharedPreferences
     lateinit var mIvAvatar: ImageView
@@ -174,7 +174,7 @@ class ProfileAvatarFragment : Fragment() {
                 @Throws(IOException::class)
                 override fun onResponse(call: Call, response: okhttp3.Response) {
 
-                    val mMessage = response.body().string()
+                    val mMessage = response.body()!!.string()
                     println(mMessage)
                     if (response.isSuccessful()){
                         try {

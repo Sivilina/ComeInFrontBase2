@@ -1,5 +1,5 @@
 package com.develop.`in`.come.comeinfrontbase.activities
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.develop.`in`.come.comeinfrontbase.R
 

@@ -4,8 +4,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.design.widget.Snackbar
-import android.support.design.widget.TextInputLayout
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import android.app.Fragment;
 import android.view.LayoutInflater
 import android.view.View
@@ -139,7 +139,7 @@ class LoginFragment: Fragment() {
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: okhttp3.Response) {
 
-                val mMessage = response.body().string()
+                val mMessage = response.body()!!.string()
                 println(mMessage)
 
                 if (response.isSuccessful()){
@@ -182,6 +182,7 @@ class LoginFragment: Fragment() {
             addUserToSharedPreference(user)
             val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
+            activity.finish()
         }
         println("Debug: Token: ${user.token}")
 

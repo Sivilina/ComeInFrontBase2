@@ -8,14 +8,14 @@
         android:id="@+id/activity_profile_llayout"
         android:orientation="vertical"
         tools:context=".activities.ProfileActivity">
-<android.support.v7.widget.Toolbar
+<androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#05d9a0"
             android:id="@+id/toolbar_profile"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title="ComeIn">
-</android.support.v7.widget.Toolbar>
+</androidx.appcompat.widget.Toolbar>
     <FrameLayout
             android:id="@+id/fragmentAvatarFrame"
             android:layout_width="match_parent"

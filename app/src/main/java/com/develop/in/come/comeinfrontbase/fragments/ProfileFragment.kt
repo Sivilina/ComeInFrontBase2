@@ -3,10 +3,12 @@ package com.develop.`in`.come.comeinfrontbase.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
+import androidx.annotation.RequiresApi
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +42,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  *
  */
-class ProfileFragment : Fragment() , EditFullNameDialog.OnInputListener, EditEmailDialog.OnInputListener,
+class ProfileFragment : androidx.fragment.app.Fragment() , EditFullNameDialog.OnInputListener, EditEmailDialog.OnInputListener,
 EditAboutMeDialog.OnInputListener, EditUsernameDialog.OnInputListener{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -161,10 +163,11 @@ EditAboutMeDialog.OnInputListener, EditUsernameDialog.OnInputListener{
                 handleError(mMessage);
             }
 
+            @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: okhttp3.Response) {
 
-                val mMessage = response.body().string()
+                val mMessage = response.body()!!.string()
                 println(mMessage)
                 if (response.isSuccessful()){
                     try {

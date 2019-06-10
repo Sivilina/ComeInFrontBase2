@@ -3,7 +3,7 @@ package com.develop.`in`.come.comeinfrontbase.fragments.private_chat
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,7 @@ import com.develop.`in`.come.comeinfrontbase.activities.ContactListActivity
 import com.develop.`in`.come.comeinfrontbase.models.User
 import java.util.ArrayList
 
-class FriendsFragment : Fragment(){
+class FriendsFragment : androidx.fragment.app.Fragment(){
     lateinit var mlvUserList: ListView
     lateinit var adapter: ArrayAdapter<*>
     lateinit var mSharedPreferences: SharedPreferences

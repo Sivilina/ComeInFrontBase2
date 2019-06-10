@@ -3,11 +3,13 @@ package com.develop.`in`.come.comeinfrontbase.fragments.group_chat
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.preference.PreferenceManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -23,29 +25,36 @@ import android.widget.Toast
 import com.develop.`in`.come.comeinfrontbase.R
 import com.develop.`in`.come.comeinfrontbase.models.Message
 import com.develop.`in`.come.comeinfrontbase.models.MessageAdapter
+import com.develop.`in`.come.comeinfrontbase.models.Room
+import com.develop.`in`.come.comeinfrontbase.models.User
 import com.develop.`in`.come.comeinfrontbase.util.Constants
+import com.google.gson.Gson
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.URISyntaxException
 import java.util.ArrayList
 
 
-class GroupFragment : Fragment() {
+class GroupFragment : androidx.fragment.app.Fragment() {
     lateinit var mSocket: Socket
 
-    lateinit var mMessagesView: RecyclerView
+    lateinit var mMessagesView: androidx.recyclerview.widget.RecyclerView
     lateinit var mInputMessageView: EditText
     val mMessages = ArrayList<Message>()
-    lateinit var mAdapter: RecyclerView.Adapter<*>
+    lateinit var mAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<*>
     var mTyping = false
     val mTypingHandler = Handler()
     lateinit var mUsername: String
     lateinit var mGroupName: String
     var isConnected: Boolean? = true
     var showOnlyTop = true
+    lateinit  var room : Room
+    lateinit var mSharedPreferences: SharedPreferences
+    lateinit var currentUser:User
 
     private val onConnect = Emitter.Listener {
         activity!!.runOnUiThread {
@@ -203,7 +212,7 @@ class GroupFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
-        mSocket.connect()
+//        mSocket.connect()
 //        mSocket.on(Socket.EVENT_CONNECT, onConnect)
 //        mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect)
 //        mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError)
@@ -226,7 +235,7 @@ class GroupFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
 
-        mSocket.disconnect()
+//        mSocket.disconnect()
 //        mSocket.off(Socket.EVENT_CONNECT, onConnect)
 //        mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect)
 //        mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError)
@@ -241,8 +250,8 @@ class GroupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mMessagesView = view.findViewById(R.id.messages) as RecyclerView
-        mMessagesView.layoutManager = LinearLayoutManager(activity)
+        mMessagesView = view.findViewById(R.id.messages) as androidx.recyclerview.widget.RecyclerView
+        mMessagesView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         mMessagesView.adapter = mAdapter
 
         mInputMessageView = view.findViewById(R.id.message_input) as EditText
@@ -253,9 +262,27 @@ class GroupFragment : Fragment() {
             }
             false
         })
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity!!.applicationContext)
         val data = activity!!.intent
-        mUsername = data.getStringExtra("username")
-        mGroupName = data.getStringExtra("groupName")
+        val gson = Gson()
+        val roomId = data.getStringExtra("roomid");
+        val jsonSavedGroups = mSharedPreferences.getString(Constants.ROOMS,"")
+        var jsonArrayRoom = JSONArray(jsonSavedGroups)
+        for(i in 0..jsonArrayRoom.length() - 1)
+        {
+            val r = jsonArrayRoom.getJSONObject(i).toString()
+            val roomTemp = gson.fromJson<Any>(r, Room::class.java) as Room
+            if(roomTemp.roomid == roomId) {
+                room = roomTemp;
+                break;
+            }
+        }
+
+        val json = mSharedPreferences.getString(Constants.CURRENT_USER, "")
+        currentUser = gson.fromJson<Any>(json, User::class.java) as User
+
+        mUsername = currentUser.username!!
+        mGroupName = room.title!!
         println("!!!" + mUsername)
         addLog(mGroupName)
         mInputMessageView.addTextChangedListener(object : TextWatcher {

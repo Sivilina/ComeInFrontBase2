@@ -3,7 +3,7 @@ package com.develop.`in`.come.comeinfrontbase.activities
 import android.app.ListActivity
 import android.content.Intent
 import android.database.Cursor
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.Menu

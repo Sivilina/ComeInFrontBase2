@@ -6,9 +6,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.design.widget.Snackbar
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -138,7 +138,7 @@ class NewProfileActivity: Activity(){
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: okhttp3.Response) {
 
-                val mMessage = response.body().string()
+                val mMessage = response.body()!!.string()
                 println(mMessage)
                 if (response.isSuccessful()){
                     try {
@@ -177,8 +177,8 @@ class NewProfileActivity: Activity(){
     }
 
     private fun handleError(error: String) {
-        val json = JSONObject(error)
-        showSnackBarMessage("Error: " + json.getString("message"))
+
+        showSnackBarMessage("Error: " + error)
     }
 
     private fun showSnackBarMessage(message: String) {

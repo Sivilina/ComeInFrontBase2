@@ -5,7 +5,7 @@
               android:id="@+id/layout_add_group"
               android:orientation="vertical"
 >
-    <android.support.v7.widget.Toolbar android:layout_width="match_parent"
+    <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
                                        android:layout_height="wrap_content"
                                        android:background="#05d9a0"
                                        android:id="@+id/toolbar_newGroup"
@@ -60,7 +60,7 @@
                 android:textSize="18sp"
         />
     </LinearLayout>
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_groupname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,8 +73,8 @@
                 android:gravity="center"
                 android:hint="@string/group_name_required"
                 android:inputType="text"/>
-    </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_groupdescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,33 +87,27 @@
                 android:gravity="center"
                 android:hint="Description"
                 android:inputType="text"/>
-    </android.support.design.widget.TextInputLayout>
-    <MultiAutoCompleteTextView
-            android:hint="Select tag"
-            android:gravity="center"
-            android:completionThreshold="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tags"/>
-    <android.support.design.widget.TextInputLayout
-            android:id="@+id/ti_group_first_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="@dimen/child_margin_top">
-        <EditText
-                android:id="@+id/et_group_first_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="Enter first message: This message will tell users about goal and rules of the group"
-                android:inputType="text"/>
-    </android.support.design.widget.TextInputLayout>
-    <Button
-            android:text="Save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_save_group"/>
+    </com.google.android.material.textfield.TextInputLayout>
+  <AutoCompleteTextView android:layout_width="match_parent" android:layout_height="wrap_content"
+  android:id="@+id/actv1"
+                        android:gravity="center"
+  android:hint="Add tag"/>
+    <AutoCompleteTextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/actv2"
+                          android:gravity="center"
+                          android:hint="Add tag"/>
+    <AutoCompleteTextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/actv3"
+                          android:gravity="center"
+                          android:hint="Add tag"/>
+    <AutoCompleteTextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/actv4"
+                          android:gravity="center"
+                          android:hint="Add tag"/>
+    <AutoCompleteTextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:id="@+id/actv5"
+                          android:gravity="center"
+                          android:hint="Add tag"/>
 
 
 </LinearLayout>
